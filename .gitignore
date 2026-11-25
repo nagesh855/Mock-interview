@@ -1,0 +1,26 @@
+
+# Frontend
+node_modules/
+dist/
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Database
+*.db
+*.sqlite3
+
+# Editor
+.vscode/
+
+# Operating System
+.DS_Store
+Thumbs.db
