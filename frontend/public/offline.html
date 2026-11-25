@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Offline Mode | AI Mock Interview Practice</title>
+    <meta name="theme-color" content="#070913" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      :root {
+        --bg-primary: #070913;
+        --bg-secondary: #0d1224;
+        --bg-card: rgba(16, 22, 42, 0.95);
+        --accent-primary: #4f46e5;
+        --accent-secondary: #7c3aed;
+        --accent-cyan: #06b6d4;
+        --accent-amber: #f59e0b;
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --text-muted: #64748b;
+        --border-subtle: rgba(255, 255, 255, 0.1);
+        --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        text-align: center;
+      }
+
+      .offline-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: 20px;
+        max-width: 580px;
+        width: 100%;
+        padding: 40px 32px;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5), 0 0 40px rgba(79, 70, 229, 0.2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .offline-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 14px;
+        background: rgba(245, 158, 11, 0.15);
+        border: 1px solid rgba(245, 158, 11, 0.35);
+        border-radius: 9999px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #fde68a;
+      }
+
+      .offline-badge-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent-amber);
+      }
+
+      .offline-icon-wrap {
+        width: 72px;
+        height: 72px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.2rem;
+        box-shadow: 0 0 25px rgba(79, 70, 229, 0.4);
+      }
+
+      h1 {
+        font-size: 1.85rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        color: var(--text-primary);
+      }
+
+      p {
+        font-size: 0.98rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      .actions-group {
+        display: flex;
+        gap: 12px;
+        width: 100%;
+        margin-top: 10px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        flex: 1;
+        min-width: 180px;
+        padding: 12px 20px;
+        border-radius: 10px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: none;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+        color: #fff;
+        box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(79, 70, 229, 0.6);
+      }
+
+      .btn-outline {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-primary);
+        border: 1px solid var(--border-subtle);
+      }
+
+      .btn-outline:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .disclaimer-box {
+        background: rgba(6, 182, 212, 0.08);
+        border: 1px solid rgba(6, 182, 212, 0.25);
+        border-radius: 10px;
+        padding: 12px 16px;
+        font-size: 0.82rem;
+        color: #cffafe;
+        text-align: left;
+        line-height: 1.45;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="offline-card">
+      <div class="offline-badge">
+        <span class="offline-badge-dot"></span>
+        <span>Offline-First Architecture</span>
+      </div>
+
+      <div class="offline-icon-wrap">⚡</div>
+
+      <h1>Practice Anywhere, Learn Anytime</h1>
+
+      <p>
+        You are currently without an active internet connection. AI Mock Interview Practice is built with offline-first capabilities to keep your preparation continuous.
+      </p>
+
+      <div class="disclaimer-box">
+        ℹ️ <strong>Offline Status:</strong> Your cached question sets, exam categories, and session configurations remain accessible locally in your browser. Real-time speech evaluation will be powered by local on-device models in upcoming updates.
+      </div>
+
+      <div class="actions-group">
+        <button type="button" class="btn btn-primary" onclick="window.location.reload()">
+          🔄 Retry Connection
+        </button>
+        <button type="button" class="btn btn-outline" onclick="window.location.href='/'">
+          🏠 Return to App
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
