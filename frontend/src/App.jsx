@@ -20,6 +20,14 @@ import InterviewResultsModal from './components/InterviewResultsModal';
 import InterviewHistory from './components/InterviewHistory';
 import './App.css';
 
+import { Routes, Route } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute';
+import Dashboard from './pages/Dashboard';
+import AdminDashboard from './pages/AdminDashboard';
+import NotFound from './pages/NotFound';
+import useTheme from './hooks/useTheme';
+
+
 function AppContent() {
   const { language, languages, t } = useLanguage();
 
@@ -37,6 +45,23 @@ function AppContent() {
   const [showHistoryModal, setShowHistoryModal] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [toast, setToast] = useState('');
+
+  // state variables declare ayyaake useTheme pilavali
+  const sectionTheme = {
+  home: 'obsidian',
+  configurator: 'navy',
+  categories: 'sand',
+  features: 'nordic',
+  about: 'sand',
+  faq: 'navy',
+  contact: 'nordic',
+};
+
+useTheme(
+  activeSession ? 'obsidian'
+  : authModal.open ? 'navy'
+  : sectionTheme[activeSection] || 'obsidian'
+);
 
   const showToast = useCallback((msg) => {
     setToast(msg);
@@ -278,10 +303,31 @@ function AppContent() {
   );
 }
 
+
+
 export default function App() {
   return (
     <LanguageProvider>
-      <AppContent />
+      <Routes>
+        <Route path="/" element={<AppContent />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute adminOnly>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </LanguageProvider>
   );
 }

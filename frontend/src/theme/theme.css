@@ -1,0 +1,38 @@
+:root, [data-theme='nordic'] {
+  --bg-primary: #f8fafc; --surface-elevated: #ffffff;
+  --brand-primary: #0f766e; --ai-accent: #14b8a6;
+  --text-primary: #0f172a; --text-muted: #475569; --border-soft: #e2e8f0;
+}
+[data-theme='obsidian'] {
+  --bg-primary: #0b0f19; --surface-elevated: #131a2a;
+  --brand-primary: #6366f1; --ai-accent: #22d3ee;
+  --text-primary: #f1f5f9; --text-muted: #94a3b8; --border-soft: #26304a;
+}
+[data-theme='navy'] {
+  --bg-primary: #172554; --surface-elevated: #1e3a8a;
+  --brand-primary: #2563eb; --ai-accent: #f59e0b;
+  --text-primary: #f8fafc; --text-muted: #cbd5e1; --border-soft: #3b5bb5;
+}
+[data-theme='sand'] {
+  --bg-primary: #f5ede0; --surface-elevated: #fffaf2;
+  --brand-primary: #c2410c; --ai-accent: #ea580c;
+  --text-primary: #1c1917; --text-muted: #57534e; --border-soft: #e7d8c3;
+}
+
+/* Override fixed colors */
+body, .app-layout, .main-content, section {
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+nav, header, footer, [class*="card"], [class*="panel"], [class*="modal-content"] {
+  background: var(--surface-elevated) !important;
+  border-color: var(--border-soft) !important;
+}
+h1, h2, h3, h4, p, li, label, nav a { color: var(--text-primary) !important; }
+[class*="btn"], button[type="submit"] {
+  background: var(--brand-primary) !important;
+  color: #fff !important;
+}
+body, .app-layout, section, nav, header, footer, [class*="card"], [class*="btn"] {
+  transition: background-color .5s, color .5s, border-color .5s;
+}
