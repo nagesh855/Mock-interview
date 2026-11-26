@@ -1,0 +1,29 @@
+# Environment
+.env
+.env.*
+!.env.example
+.venv/
+env/
+venv/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.sqlite3
+*.db
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Uploads & Media
+uploads/
+BACKEND/uploads/
+*.png
+*.jpg
+*.jpeg
+*.webp
+
+# Logs
+*.log
