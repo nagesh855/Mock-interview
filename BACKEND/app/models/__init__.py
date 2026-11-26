@@ -6,6 +6,7 @@ from app.models.question import Question
 from app.models.interview import InterviewSession, InterviewAnswer, Certificate
 from app.models.sync import SyncLog
 from app.models.content import FAQ, Testimonial, ContactMessage
+from app.models.game import Game
 
 __all__ = [
     "Base",
@@ -20,4 +21,5 @@ __all__ = [
     "FAQ",
     "Testimonial",
     "ContactMessage",
+    "Game",
 ]

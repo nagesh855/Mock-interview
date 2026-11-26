@@ -1,4 +1,5 @@
 """Database seed script populating initial exam categories, questions, FAQs, and accounts."""
+import json
 from sqlalchemy.orm import Session
 from app.core.database import SessionLocal, engine, Base
 from app.core.security import get_password_hash
@@ -6,6 +7,7 @@ from app.models.user import User, UserProgress
 from app.models.category import Category
 from app.models.question import Question
 from app.models.content import FAQ, Testimonial
+from app.models.game import Game
 
 SEED_CATEGORIES = [
     {
@@ -286,6 +288,75 @@ SEED_TESTIMONIALS = [
     }
 ]
 
+SEED_GAMES = [
+    {
+        "category_slug": "upsc",
+        "title": "Indian Polity & Constitution Speed Quiz",
+        "game_type": "quiz",
+        "xp_reward": 50,
+        "config_json": json.dumps({
+            "time_limit_seconds": 60,
+            "questions": [
+                {
+                    "id": 1,
+                    "prompt": "Which Article of the Indian Constitution empowers the President to promulgate Ordinances during recess of Parliament?",
+                    "options": ["Article 123", "Article 213", "Article 352", "Article 356"],
+                    "correct_index": 0,
+                    "explanation": "Article 123 deals with the Ordinance-making power of the President."
+                },
+                {
+                    "id": 2,
+                    "prompt": "Which writ is issued by the Supreme Court to quash the order of an inferior court or tribunal?",
+                    "options": ["Habeas Corpus", "Mandamus", "Certiorari", "Quo-Warranto"],
+                    "correct_index": 2,
+                    "explanation": "Certiorari is issued to quash an order passed by a lower court/tribunal exceeding jurisdiction."
+                },
+                {
+                    "id": 3,
+                    "prompt": "The idea of 'Directive Principles of State Policy' was borrowed from which country's constitution?",
+                    "options": ["USA", "Ireland", "Australia", "Canada"],
+                    "correct_index": 1,
+                    "explanation": "DPSP was borrowed from the Irish Constitution."
+                }
+            ]
+        })
+    },
+    {
+        "category_slug": "appsc",
+        "title": "AP Development Schemes Chronology Puzzle",
+        "game_type": "puzzle",
+        "xp_reward": 75,
+        "config_json": json.dumps({
+            "instructions": "Arrange the developmental initiatives in correct historical sequence.",
+            "puzzle_type": "sequence",
+            "items": [
+                {"id": "a", "label": "Creation of Andhra State (First linguistic state)", "year": 1953},
+                {"id": "b", "label": "Establishment of Sri Venkateswara University", "year": 1954},
+                {"id": "c", "label": "AP Bifurcation & Reorganization Act", "year": 2014},
+                {"id": "d", "label": "Creation of 13 New Districts in Andhra Pradesh", "year": 2022}
+            ],
+            "correct_order": ["a", "b", "c", "d"]
+        })
+    },
+    {
+        "category_slug": "ssb",
+        "title": "SSB Tactical Decision: Knight Fork Challenge",
+        "game_type": "chess",
+        "xp_reward": 100,
+        "config_json": json.dumps({
+            "tactical_concept": "Decisive Officer Initiative & Multi-target Fork",
+            "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1n3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 4",
+            "objective": "Find the critical tactical breakthrough sequence for White",
+            "winning_moves": ["Bxf7+", "Kxf7", "Nxe5+"],
+            "hints": [
+                "Sacrifice the bishop on f7 to disrupt the enemy king's safety.",
+                "Follow up with a knight jump to e5 with a royal check."
+            ],
+            "military_analogy": "Calculated sacrificial breakthrough to displace the adversary's central command post."
+        })
+    }
+]
+
 def seed_database(db: Session = None):
     """Seed initial data into the database."""
     own_session = False
@@ -383,8 +454,22 @@ def seed_database(db: Session = None):
             if not existing_t:
                 db.add(Testimonial(**t_data))
 
+        # 6. Seed Games, Quizzes, Puzzles, and Chess
+        for g_data in SEED_GAMES:
+            cat = db.query(Category).filter(Category.slug == g_data["category_slug"]).first()
+            cat_id = cat.id if cat else None
+            existing_g = db.query(Game).filter(Game.title == g_data["title"]).first()
+            if not existing_g:
+                db.add(Game(
+                    category_id=cat_id,
+                    title=g_data["title"],
+                    game_type=g_data["game_type"],
+                    xp_reward=g_data["xp_reward"],
+                    config_json=g_data["config_json"]
+                ))
+
         db.commit()
-        print(" Successfully seeded database with competitive exams, questions, FAQs, and users!")
+        print(" Successfully seeded database with competitive exams, questions, FAQs, games, and users!")
     finally:
         if own_session:
             db.close()

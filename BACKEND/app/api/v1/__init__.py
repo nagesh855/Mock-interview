@@ -12,6 +12,7 @@ from app.api.v1 import (
     testimonials,
     contact,
     admin,
+    games,
     sync,
 )
 
@@ -28,4 +29,5 @@ api_router.include_router(faqs.router, prefix="/faqs", tags=["FAQs"])
 api_router.include_router(testimonials.router, prefix="/testimonials", tags=["Testimonials"])
 api_router.include_router(contact.router, prefix="/contact", tags=["Contact"])
 api_router.include_router(admin.router, prefix="/admin", tags=["Admin"])
+api_router.include_router(games.router, prefix="/games", tags=["Games"])
 api_router.include_router(sync.router, prefix="/sync", tags=["Sync"])

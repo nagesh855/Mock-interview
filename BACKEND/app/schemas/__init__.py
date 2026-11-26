@@ -28,6 +28,11 @@ from app.schemas.content import (
     ContactMessageCreate,
     ContactMessageRead,
 )
+from app.schemas.game import (
+    GameCreate,
+    GameRead,
+    GameCompleteResponse,
+)
 
 __all__ = [
     "UserCreate",
@@ -57,4 +62,7 @@ __all__ = [
     "TestimonialRead",
     "ContactMessageCreate",
     "ContactMessageRead",
+    "GameCreate",
+    "GameRead",
+    "GameCompleteResponse",
 ]

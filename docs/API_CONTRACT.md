@@ -284,7 +284,84 @@ When any error occurs, the API returns a structured JSON object:
 
 ---
 
-### 8. Offline IndexedDB Sync
+### 8. Games, Quizzes, Puzzles & Chess Challenges
+
+#### `GET /api/v1/games/`
+- **Auth:** None / Bearer Token
+- **Query Params:** `category_id` (optional int), `game_type` (optional `quiz` | `puzzle` | `chess`)
+- **Response `200 OK`:**
+```json
+[
+  {
+    "id": 1,
+    "category_id": 1,
+    "title": "Indian Polity & Constitution Speed Quiz",
+    "game_type": "quiz",
+    "xp_reward": 50,
+    "is_active": true,
+    "config_json": "{\"time_limit_seconds\": 60, \"questions\": [...]}",
+    "created_at": "2026-11-26T00:00:00Z"
+  },
+  {
+    "id": 2,
+    "category_id": 2,
+    "title": "AP Development Schemes Chronology Puzzle",
+    "game_type": "puzzle",
+    "xp_reward": 75,
+    "is_active": true,
+    "config_json": "{\"items\": [...], \"correct_order\": [\"a\",\"b\",\"c\",\"d\"]}",
+    "created_at": "2026-11-26T00:00:00Z"
+  },
+  {
+    "id": 3,
+    "category_id": 4,
+    "title": "SSB Tactical Decision: Knight Fork Challenge",
+    "game_type": "chess",
+    "xp_reward": 100,
+    "is_active": true,
+    "config_json": "{\"fen\": \"...\", \"winning_moves\": [\"Bxf7+\", \"Kxf7\", \"Nxe5+\"]}",
+    "created_at": "2026-11-26T00:00:00Z"
+  }
+]
+```
+
+#### `GET /api/v1/games/{id}`
+- **Auth:** None / Bearer Token
+- **Response `200 OK`:** Returns individual game with complete `config_json` payload.
+
+#### `POST /api/v1/games/{id}/complete`
+- **Auth:** Bearer Token (Student)
+- **Response `200 OK`:**
+```json
+{
+  "game_id": 1,
+  "xp_awarded": 50,
+  "total_xp": 250,
+  "message": "Congratulations! You completed 'Indian Polity & Constitution Speed Quiz' and earned 50 XP."
+}
+```
+
+#### `POST /api/v1/admin/games`
+- **Auth:** Bearer Token (`admin` only)
+- **Request Body:**
+```json
+{
+  "category_id": 1,
+  "title": "UPSC Rapid Fire Quiz",
+  "game_type": "quiz",
+  "config_json": "{\"questions\": []}",
+  "xp_reward": 50
+}
+```
+- **Response `201 Created`**
+
+#### `DELETE /api/v1/admin/games/{id}`
+- **Auth:** Bearer Token (`admin` only)
+- **Response `204 No Content`**
+
+---
+
+### 9. Offline IndexedDB Sync
 
 #### `POST /api/v1/sync/push`
 - **Auth:** Bearer Token
